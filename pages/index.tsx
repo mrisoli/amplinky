@@ -96,6 +96,7 @@ const createNewLink = async (dispatch: Dispatch<LinkAction>, currentLink: LinkDa
     id: nanoid(),
     ...currentLink,
     createdAt: `${Date.now()}`,
+    updatedAt: `${Date.now()}`,
     userId: user.username,
   }
   dispatch({ type: 'add-link', payload: link })
