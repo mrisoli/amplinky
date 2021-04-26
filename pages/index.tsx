@@ -1,70 +1,87 @@
 import { Reducer, useReducer, Dispatch } from 'react'
-import { API, graphqlOperation } from 'aws-amplify'
+import { Amplify, Auth, graphqlOperation, withSSRContext } from 'aws-amplify'
+import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'
 import nanoid from 'nanoid'
 import produce from 'immer'
 
-import { ListTodosQuery, GetTodoListQuery } from '../src/API'
+import { ListLinksQuery, GetLinkListQuery, ListLinkListsQuery } from '../src/API'
 import config from '../src/aws-exports'
-import {
-  createTodo,
-  deleteTodo,
-  createTodoList,
-} from '../src/graphql/mutations'
-import { getTodoList } from '../src/graphql/queries'
+import { createLink, deleteLink } from '../src/graphql/mutations'
+import { getLinkList } from '../src/graphql/queries'
+import {NextPageContext} from 'next'
 
-const MY_ID = nanoid()
-API.configure(config)
+Amplify.configure({...config, ssr: true })
 
-type Todo = Omit<
-  ListTodosQuery['listTodos']['items'][0],
-  '__typename' | 'todoList'
+type Link = Omit<
+  ListLinksQuery['listLinks']['items'][0],
+  '__typename' | 'linkList'
 >
 
+type LinkList = Omit<
+  ListLinkListsQuery['listLinkLists']['items'][0],
+  '__typename' | 'linkList'
+>
+
+type LinkData = {
+  linkLinkListId: string
+  title: string
+  url: string
+}
+
 type Props = {
-  todos: Todo[]
+  linkList: LinkList
+  links: Link[]
 }
 
-type State = {
-  todos: Todo[]
-  currentName: string
+type LinkState = {
+  links: Link[]
+  currentTitle: string
+  currentUrl: string
 }
 
-type Action =
+type LinkAction =
   | {
-      type: 'add-todo'
-      payload: Todo
-    }
-  | {
-      type: 'delete-todo'
-      payload: string
-    }
-  | {
-      type: 'reset-current'
-    }
-  | { type: 'set-current'; payload: string }
+  type: 'add-link'
+  payload: Link
+}
+| {
+  type: 'delete-link'
+  payload: string
+}
+| {
+  type: 'reset-current-link'
+}
+| { type: 'set-current-link-title'; payload: string }
+| { type: 'set-current-link-url'; payload: string }
 
-const reducer: Reducer<State, Action> = (state, action) => {
+const linksReducer: Reducer<LinkState, LinkAction> = (state, action) => {
   switch (action.type) {
-    case 'add-todo': {
+    case 'add-link': {
       return produce(state, (draft) => {
-        draft.todos.push(action.payload)
+        draft.links.push(action.payload)
       })
     }
-    case 'delete-todo': {
-      const index = state.todos.findIndex(({ id }) => action.payload === id)
+    case 'delete-link': {
+      const index = state.links.findIndex(({ id }) => action.payload === id)
       if (index === -1) return state
+        return produce(state, (draft) => {
+          draft.links.splice(index, 1)
+        })
+    }
+    case 'reset-current-link': {
       return produce(state, (draft) => {
-        draft.todos.splice(index, 1)
+        draft.currentTitle = ''
+        draft.currentUrl = ''
       })
     }
-    case 'reset-current': {
+    case 'set-current-link-title': {
       return produce(state, (draft) => {
-        draft.currentName = ''
+        draft.currentTitle = action.payload
       })
     }
-    case 'set-current': {
+    case 'set-current-link-url': {
       return produce(state, (draft) => {
-        draft.currentName = action.payload
+        draft.currentUrl = action.payload
       })
     }
     default: {
@@ -73,64 +90,77 @@ const reducer: Reducer<State, Action> = (state, action) => {
   }
 }
 
-const createToDo = async (dispatch: Dispatch<Action>, currentToDo) => {
-  const todo = {
+const createNewLink = async (dispatch: Dispatch<LinkAction>, currentLink: LinkData) => {
+  const user = await Auth.currentAuthenticatedUser()
+  const link = {
     id: nanoid(),
-    name: currentToDo,
+    ...currentLink,
     createdAt: `${Date.now()}`,
-    completed: false,
-    todoTodoListId: 'global',
-    userId: MY_ID,
+    userId: user.username,
   }
-  dispatch({ type: 'add-todo', payload: todo })
-  dispatch({ type: 'reset-current' })
+  dispatch({ type: 'add-link', payload: link })
+  dispatch({ type: 'reset-current-link' })
   try {
-    await API.graphql(graphqlOperation(createTodo, { input: todo }))
+    await Amplify.API.graphql(graphqlOperation(createLink, { input: link }))
   } catch (err) {
-    dispatch({ type: 'set-current', payload: todo.name })
+    dispatch({ type: 'set-current-link-title', payload: link.title })
+    dispatch({ type: 'set-current-link-url', payload: link.url })
     console.warn('Error adding to do ', err)
   }
 }
-const deleteToDo = async (dispatch: Dispatch<Action>, id: string) => {
-  dispatch({ type: 'delete-todo', payload: id })
+
+const deleteLinkById = async (dispatch: Dispatch<LinkAction>, id: string) => {
+  dispatch({ type: 'delete-link', payload: id })
   try {
-    await API.graphql({
-      ...graphqlOperation(deleteTodo),
+    await Amplify.API.graphql({
+      ...graphqlOperation(deleteLink),
       variables: { input: { id } },
     })
   } catch (err) {
     console.warn('Error deleting to do ', err)
   }
 }
+
 const App = (props: Props) => {
-  const [state, dispatch] = useReducer(reducer, {
-    todos: props.todos,
-    currentName: '',
+  const [linksState, dispatchLinks] = useReducer(linksReducer, {
+    links: props.links,
+    currentTitle: '',
+    currentUrl: '',
   })
+
   return (
     <div>
-      <h3>Add a Todo</h3>
+      <h3>Add a Link</h3>
+
       <form
         onSubmit={(ev) => {
           ev.preventDefault()
-          createToDo(dispatch, state.currentName)
+          createNewLink(dispatchLinks, { title: linksState.currentTitle, url: linksState.currentUrl, linkLinkListId: props.linkList.id })
         }}
       >
         <input
-          value={state.currentName}
+          value={linksState.currentTitle}
           onChange={(e) => {
-            dispatch({ type: 'set-current', payload: e.target.value })
+            dispatchLinks({ type: 'set-current-link-title', payload: e.target.value })
           }}
         />
-        <button type="submit">Create Todo</button>
+
+        <input
+          value={linksState.currentUrl}
+          onChange={(e) => {
+            dispatchLinks({ type: 'set-current-link-url', payload: e.target.value })
+          }}
+        />
+        <button type="submit">Create Link</button>
       </form>
-      <h3>Todos List</h3>
-      {state.todos.map((todo, index) => (
+
+      <h3>Links List</h3>
+      {linksState.links.map((link, index) => (
         <p key={index}>
-          <a href={`/todo/${todo.id}`}>{todo.name}</a>
+          <a href={link.url}>{link.title}</a>
           <button
             onClick={() => {
-              deleteToDo(dispatch, todo.id)
+              deleteLinkById(dispatchLinks, link.id)
             }}
           >
             delete
@@ -141,36 +171,46 @@ const App = (props: Props) => {
   )
 }
 
-export const getStaticProps = async () => {
-  let result = (await API.graphql(
-    graphqlOperation(getTodoList, { id: 'global' })
-  )) as { data: GetTodoListQuery; errors: any[] }
+export const getServerSideProps = async (context: NextPageContext) => {
+  const { req } = context
+  const SSR = withSSRContext({ req })
+  try {
+    const { Auth } = SSR
+    const user = await Auth.currentAuthenticatedUser();
 
-  if (result.errors) {
-    console.error('Failed to fetch todolist.', result.errors)
-    throw new Error(result.errors[0].message)
-  }
-  if (result.data.getTodoList !== null) {
+    let result = (await SSR.API.graphql({
+      query: getLinkList,
+      authMode: GRAPHQL_AUTH_MODE.API_KEY,
+      variables: {
+        id: user.username
+      }
+    })) as { data: GetLinkListQuery; errors: any[] }
+
+    if (result.errors) {
+      console.error('Failed to fetch linklist.', result.errors)
+      throw new Error(result.errors[0].message)
+    }
+    if (result.data.getLinkList !== null) {
+      return {
+        props: {
+          linkList: result.data.getLinkList,
+          links: result.data.getLinkList.links.items,
+        },
+      }
+    }
+
     return {
       props: {
-        todos: result.data.getTodoList.todos.items,
+        links: [],
       },
     }
-  }
-
-  await API.graphql(
-    graphqlOperation(createTodoList, {
-      input: {
-        id: 'global',
-        createdAt: `${Date.now()}`,
-      },
-    })
-  )
-
-  return {
-    props: {
-      todos: [],
-    },
+  } catch (err) {
+    console.log(err)
+    return {
+      props: {
+        authenticated: false
+      }
+    }
   }
 }
 

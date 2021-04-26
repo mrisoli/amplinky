@@ -1,15 +1,14 @@
-type Todo @model {
-  # ! means non-null GraphQL fields are allowed to be null by default
+type Link @model {
   id: ID!
-  name: String!
+  title: String!
+  url: String!
   createdAt: String!
-  completed: Boolean!
-  todoList: TodoList! @connection(name: "SortedList")
   userId: String!
 }
 
-type TodoList @model {
+type LinkList @model {
   id: ID!
+  title: String!
   createdAt: String!
-  todos: [Todo] @connection(name: "SortedList", sortField: "createdAt")
+  links: [Link] @connection(name: "SortedList", sortField: "createdAt")
 }

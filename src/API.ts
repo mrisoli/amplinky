@@ -2,23 +2,23 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateTodoInput = {
+export type CreateLinkInput = {
   id?: string | null,
-  name: string,
+  title: string,
+  url: string,
   createdAt?: string | null,
-  completed: boolean,
   userId: string,
-  todoTodoListId: string,
+  linkLinkListId: string,
 };
 
-export type ModelTodoConditionInput = {
-  name?: ModelStringInput | null,
+export type ModelLinkConditionInput = {
+  title?: ModelStringInput | null,
+  url?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  completed?: ModelBooleanInput | null,
   userId?: ModelStringInput | null,
-  and?: Array< ModelTodoConditionInput | null > | null,
-  or?: Array< ModelTodoConditionInput | null > | null,
-  not?: ModelTodoConditionInput | null,
+  and?: Array< ModelLinkConditionInput | null > | null,
+  or?: Array< ModelLinkConditionInput | null > | null,
+  not?: ModelLinkConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -61,81 +61,78 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type Todo = {
-  __typename: "Todo",
+export type Link = {
+  __typename: "Link",
   id?: string,
-  name?: string,
+  title?: string,
+  url?: string,
   createdAt?: string,
-  completed?: boolean,
-  todoList?: TodoList,
+  linkList?: LinkList,
   userId?: string,
   updatedAt?: string,
 };
 
-export type TodoList = {
-  __typename: "TodoList",
+export type LinkList = {
+  __typename: "LinkList",
   id?: string,
+  title?: string,
   createdAt?: string,
-  todos?: ModelTodoConnection,
+  links?: ModelLinkConnection,
   updatedAt?: string,
 };
 
-export type ModelTodoConnection = {
-  __typename: "ModelTodoConnection",
-  items?:  Array<Todo | null > | null,
+export type ModelLinkConnection = {
+  __typename: "ModelLinkConnection",
+  items?:  Array<Link | null > | null,
   nextToken?: string | null,
 };
 
-export type UpdateTodoInput = {
+export type UpdateLinkInput = {
   id: string,
-  name?: string | null,
+  title?: string | null,
+  url?: string | null,
   createdAt?: string | null,
-  completed?: boolean | null,
   userId?: string | null,
-  todoTodoListId?: string | null,
+  linkLinkListId?: string | null,
 };
 
-export type DeleteTodoInput = {
+export type DeleteLinkInput = {
   id?: string | null,
 };
 
-export type CreateTodoListInput = {
+export type CreateLinkListInput = {
   id?: string | null,
+  title: string,
   createdAt?: string | null,
 };
 
-export type ModelTodoListConditionInput = {
+export type ModelLinkListConditionInput = {
+  title?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  and?: Array< ModelTodoListConditionInput | null > | null,
-  or?: Array< ModelTodoListConditionInput | null > | null,
-  not?: ModelTodoListConditionInput | null,
+  and?: Array< ModelLinkListConditionInput | null > | null,
+  or?: Array< ModelLinkListConditionInput | null > | null,
+  not?: ModelLinkListConditionInput | null,
 };
 
-export type UpdateTodoListInput = {
+export type UpdateLinkListInput = {
   id: string,
+  title?: string | null,
   createdAt?: string | null,
 };
 
-export type DeleteTodoListInput = {
+export type DeleteLinkListInput = {
   id?: string | null,
 };
 
-export type ModelTodoFilterInput = {
+export type ModelLinkFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
+  title?: ModelStringInput | null,
+  url?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  completed?: ModelBooleanInput | null,
   userId?: ModelStringInput | null,
-  and?: Array< ModelTodoFilterInput | null > | null,
-  or?: Array< ModelTodoFilterInput | null > | null,
-  not?: ModelTodoFilterInput | null,
+  and?: Array< ModelLinkFilterInput | null > | null,
+  or?: Array< ModelLinkFilterInput | null > | null,
+  not?: ModelLinkFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -154,38 +151,40 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type ModelTodoListFilterInput = {
+export type ModelLinkListFilterInput = {
   id?: ModelIDInput | null,
+  title?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  and?: Array< ModelTodoListFilterInput | null > | null,
-  or?: Array< ModelTodoListFilterInput | null > | null,
-  not?: ModelTodoListFilterInput | null,
+  and?: Array< ModelLinkListFilterInput | null > | null,
+  or?: Array< ModelLinkListFilterInput | null > | null,
+  not?: ModelLinkListFilterInput | null,
 };
 
-export type ModelTodoListConnection = {
-  __typename: "ModelTodoListConnection",
-  items?:  Array<TodoList | null > | null,
+export type ModelLinkListConnection = {
+  __typename: "ModelLinkListConnection",
+  items?:  Array<LinkList | null > | null,
   nextToken?: string | null,
 };
 
-export type CreateTodoMutationVariables = {
-  input?: CreateTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type CreateLinkMutationVariables = {
+  input?: CreateLinkInput,
+  condition?: ModelLinkConditionInput | null,
 };
 
-export type CreateTodoMutation = {
-  createTodo?:  {
-    __typename: "Todo",
+export type CreateLinkMutation = {
+  createLink?:  {
+    __typename: "Link",
     id: string,
-    name: string,
+    title: string,
+    url: string,
     createdAt: string,
-    completed: boolean,
-    todoList:  {
-      __typename: "TodoList",
+    linkList:  {
+      __typename: "LinkList",
       id: string,
+      title: string,
       createdAt: string,
-      todos?:  {
-        __typename: "ModelTodoConnection",
+      links?:  {
+        __typename: "ModelLinkConnection",
         nextToken?: string | null,
       } | null,
       updatedAt: string,
@@ -195,24 +194,25 @@ export type CreateTodoMutation = {
   } | null,
 };
 
-export type UpdateTodoMutationVariables = {
-  input?: UpdateTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type UpdateLinkMutationVariables = {
+  input?: UpdateLinkInput,
+  condition?: ModelLinkConditionInput | null,
 };
 
-export type UpdateTodoMutation = {
-  updateTodo?:  {
-    __typename: "Todo",
+export type UpdateLinkMutation = {
+  updateLink?:  {
+    __typename: "Link",
     id: string,
-    name: string,
+    title: string,
+    url: string,
     createdAt: string,
-    completed: boolean,
-    todoList:  {
-      __typename: "TodoList",
+    linkList:  {
+      __typename: "LinkList",
       id: string,
+      title: string,
       createdAt: string,
-      todos?:  {
-        __typename: "ModelTodoConnection",
+      links?:  {
+        __typename: "ModelLinkConnection",
         nextToken?: string | null,
       } | null,
       updatedAt: string,
@@ -222,24 +222,25 @@ export type UpdateTodoMutation = {
   } | null,
 };
 
-export type DeleteTodoMutationVariables = {
-  input?: DeleteTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type DeleteLinkMutationVariables = {
+  input?: DeleteLinkInput,
+  condition?: ModelLinkConditionInput | null,
 };
 
-export type DeleteTodoMutation = {
-  deleteTodo?:  {
-    __typename: "Todo",
+export type DeleteLinkMutation = {
+  deleteLink?:  {
+    __typename: "Link",
     id: string,
-    name: string,
+    title: string,
+    url: string,
     createdAt: string,
-    completed: boolean,
-    todoList:  {
-      __typename: "TodoList",
+    linkList:  {
+      __typename: "LinkList",
       id: string,
+      title: string,
       createdAt: string,
-      todos?:  {
-        __typename: "ModelTodoConnection",
+      links?:  {
+        __typename: "ModelLinkConnection",
         nextToken?: string | null,
       } | null,
       updatedAt: string,
@@ -249,24 +250,25 @@ export type DeleteTodoMutation = {
   } | null,
 };
 
-export type CreateTodoListMutationVariables = {
-  input?: CreateTodoListInput,
-  condition?: ModelTodoListConditionInput | null,
+export type CreateLinkListMutationVariables = {
+  input?: CreateLinkListInput,
+  condition?: ModelLinkListConditionInput | null,
 };
 
-export type CreateTodoListMutation = {
-  createTodoList?:  {
-    __typename: "TodoList",
+export type CreateLinkListMutation = {
+  createLinkList?:  {
+    __typename: "LinkList",
     id: string,
+    title: string,
     createdAt: string,
-    todos?:  {
-      __typename: "ModelTodoConnection",
+    links?:  {
+      __typename: "ModelLinkConnection",
       items?:  Array< {
-        __typename: "Todo",
+        __typename: "Link",
         id: string,
-        name: string,
+        title: string,
+        url: string,
         createdAt: string,
-        completed: boolean,
         userId: string,
         updatedAt: string,
       } | null > | null,
@@ -276,24 +278,25 @@ export type CreateTodoListMutation = {
   } | null,
 };
 
-export type UpdateTodoListMutationVariables = {
-  input?: UpdateTodoListInput,
-  condition?: ModelTodoListConditionInput | null,
+export type UpdateLinkListMutationVariables = {
+  input?: UpdateLinkListInput,
+  condition?: ModelLinkListConditionInput | null,
 };
 
-export type UpdateTodoListMutation = {
-  updateTodoList?:  {
-    __typename: "TodoList",
+export type UpdateLinkListMutation = {
+  updateLinkList?:  {
+    __typename: "LinkList",
     id: string,
+    title: string,
     createdAt: string,
-    todos?:  {
-      __typename: "ModelTodoConnection",
+    links?:  {
+      __typename: "ModelLinkConnection",
       items?:  Array< {
-        __typename: "Todo",
+        __typename: "Link",
         id: string,
-        name: string,
+        title: string,
+        url: string,
         createdAt: string,
-        completed: boolean,
         userId: string,
         updatedAt: string,
       } | null > | null,
@@ -303,24 +306,25 @@ export type UpdateTodoListMutation = {
   } | null,
 };
 
-export type DeleteTodoListMutationVariables = {
-  input?: DeleteTodoListInput,
-  condition?: ModelTodoListConditionInput | null,
+export type DeleteLinkListMutationVariables = {
+  input?: DeleteLinkListInput,
+  condition?: ModelLinkListConditionInput | null,
 };
 
-export type DeleteTodoListMutation = {
-  deleteTodoList?:  {
-    __typename: "TodoList",
+export type DeleteLinkListMutation = {
+  deleteLinkList?:  {
+    __typename: "LinkList",
     id: string,
+    title: string,
     createdAt: string,
-    todos?:  {
-      __typename: "ModelTodoConnection",
+    links?:  {
+      __typename: "ModelLinkConnection",
       items?:  Array< {
-        __typename: "Todo",
+        __typename: "Link",
         id: string,
-        name: string,
+        title: string,
+        url: string,
         createdAt: string,
-        completed: boolean,
         userId: string,
         updatedAt: string,
       } | null > | null,
@@ -330,23 +334,24 @@ export type DeleteTodoListMutation = {
   } | null,
 };
 
-export type GetTodoQueryVariables = {
+export type GetLinkQueryVariables = {
   id?: string,
 };
 
-export type GetTodoQuery = {
-  getTodo?:  {
-    __typename: "Todo",
+export type GetLinkQuery = {
+  getLink?:  {
+    __typename: "Link",
     id: string,
-    name: string,
+    title: string,
+    url: string,
     createdAt: string,
-    completed: boolean,
-    todoList:  {
-      __typename: "TodoList",
+    linkList:  {
+      __typename: "LinkList",
       id: string,
+      title: string,
       createdAt: string,
-      todos?:  {
-        __typename: "ModelTodoConnection",
+      links?:  {
+        __typename: "ModelLinkConnection",
         nextToken?: string | null,
       } | null,
       updatedAt: string,
@@ -356,24 +361,25 @@ export type GetTodoQuery = {
   } | null,
 };
 
-export type ListTodosQueryVariables = {
-  filter?: ModelTodoFilterInput | null,
+export type ListLinksQueryVariables = {
+  filter?: ModelLinkFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListTodosQuery = {
-  listTodos?:  {
-    __typename: "ModelTodoConnection",
+export type ListLinksQuery = {
+  listLinks?:  {
+    __typename: "ModelLinkConnection",
     items?:  Array< {
-      __typename: "Todo",
+      __typename: "Link",
       id: string,
-      name: string,
+      title: string,
+      url: string,
       createdAt: string,
-      completed: boolean,
-      todoList:  {
-        __typename: "TodoList",
+      linkList:  {
+        __typename: "LinkList",
         id: string,
+        title: string,
         createdAt: string,
         updatedAt: string,
       },
@@ -384,23 +390,24 @@ export type ListTodosQuery = {
   } | null,
 };
 
-export type GetTodoListQueryVariables = {
+export type GetLinkListQueryVariables = {
   id?: string,
 };
 
-export type GetTodoListQuery = {
-  getTodoList?:  {
-    __typename: "TodoList",
+export type GetLinkListQuery = {
+  getLinkList?:  {
+    __typename: "LinkList",
     id: string,
+    title: string,
     createdAt: string,
-    todos?:  {
-      __typename: "ModelTodoConnection",
+    links?:  {
+      __typename: "ModelLinkConnection",
       items?:  Array< {
-        __typename: "Todo",
+        __typename: "Link",
         id: string,
-        name: string,
+        title: string,
+        url: string,
         createdAt: string,
-        completed: boolean,
         userId: string,
         updatedAt: string,
       } | null > | null,
@@ -410,21 +417,22 @@ export type GetTodoListQuery = {
   } | null,
 };
 
-export type ListTodoListsQueryVariables = {
-  filter?: ModelTodoListFilterInput | null,
+export type ListLinkListsQueryVariables = {
+  filter?: ModelLinkListFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListTodoListsQuery = {
-  listTodoLists?:  {
-    __typename: "ModelTodoListConnection",
+export type ListLinkListsQuery = {
+  listLinkLists?:  {
+    __typename: "ModelLinkListConnection",
     items?:  Array< {
-      __typename: "TodoList",
+      __typename: "LinkList",
       id: string,
+      title: string,
       createdAt: string,
-      todos?:  {
-        __typename: "ModelTodoConnection",
+      links?:  {
+        __typename: "ModelLinkConnection",
         nextToken?: string | null,
       } | null,
       updatedAt: string,
@@ -433,19 +441,20 @@ export type ListTodoListsQuery = {
   } | null,
 };
 
-export type OnCreateTodoSubscription = {
-  onCreateTodo?:  {
-    __typename: "Todo",
+export type OnCreateLinkSubscription = {
+  onCreateLink?:  {
+    __typename: "Link",
     id: string,
-    name: string,
+    title: string,
+    url: string,
     createdAt: string,
-    completed: boolean,
-    todoList:  {
-      __typename: "TodoList",
+    linkList:  {
+      __typename: "LinkList",
       id: string,
+      title: string,
       createdAt: string,
-      todos?:  {
-        __typename: "ModelTodoConnection",
+      links?:  {
+        __typename: "ModelLinkConnection",
         nextToken?: string | null,
       } | null,
       updatedAt: string,
@@ -455,19 +464,20 @@ export type OnCreateTodoSubscription = {
   } | null,
 };
 
-export type OnUpdateTodoSubscription = {
-  onUpdateTodo?:  {
-    __typename: "Todo",
+export type OnUpdateLinkSubscription = {
+  onUpdateLink?:  {
+    __typename: "Link",
     id: string,
-    name: string,
+    title: string,
+    url: string,
     createdAt: string,
-    completed: boolean,
-    todoList:  {
-      __typename: "TodoList",
+    linkList:  {
+      __typename: "LinkList",
       id: string,
+      title: string,
       createdAt: string,
-      todos?:  {
-        __typename: "ModelTodoConnection",
+      links?:  {
+        __typename: "ModelLinkConnection",
         nextToken?: string | null,
       } | null,
       updatedAt: string,
@@ -477,19 +487,20 @@ export type OnUpdateTodoSubscription = {
   } | null,
 };
 
-export type OnDeleteTodoSubscription = {
-  onDeleteTodo?:  {
-    __typename: "Todo",
+export type OnDeleteLinkSubscription = {
+  onDeleteLink?:  {
+    __typename: "Link",
     id: string,
-    name: string,
+    title: string,
+    url: string,
     createdAt: string,
-    completed: boolean,
-    todoList:  {
-      __typename: "TodoList",
+    linkList:  {
+      __typename: "LinkList",
       id: string,
+      title: string,
       createdAt: string,
-      todos?:  {
-        __typename: "ModelTodoConnection",
+      links?:  {
+        __typename: "ModelLinkConnection",
         nextToken?: string | null,
       } | null,
       updatedAt: string,
@@ -499,19 +510,20 @@ export type OnDeleteTodoSubscription = {
   } | null,
 };
 
-export type OnCreateTodoListSubscription = {
-  onCreateTodoList?:  {
-    __typename: "TodoList",
+export type OnCreateLinkListSubscription = {
+  onCreateLinkList?:  {
+    __typename: "LinkList",
     id: string,
+    title: string,
     createdAt: string,
-    todos?:  {
-      __typename: "ModelTodoConnection",
+    links?:  {
+      __typename: "ModelLinkConnection",
       items?:  Array< {
-        __typename: "Todo",
+        __typename: "Link",
         id: string,
-        name: string,
+        title: string,
+        url: string,
         createdAt: string,
-        completed: boolean,
         userId: string,
         updatedAt: string,
       } | null > | null,
@@ -521,19 +533,20 @@ export type OnCreateTodoListSubscription = {
   } | null,
 };
 
-export type OnUpdateTodoListSubscription = {
-  onUpdateTodoList?:  {
-    __typename: "TodoList",
+export type OnUpdateLinkListSubscription = {
+  onUpdateLinkList?:  {
+    __typename: "LinkList",
     id: string,
+    title: string,
     createdAt: string,
-    todos?:  {
-      __typename: "ModelTodoConnection",
+    links?:  {
+      __typename: "ModelLinkConnection",
       items?:  Array< {
-        __typename: "Todo",
+        __typename: "Link",
         id: string,
-        name: string,
+        title: string,
+        url: string,
         createdAt: string,
-        completed: boolean,
         userId: string,
         updatedAt: string,
       } | null > | null,
@@ -543,19 +556,20 @@ export type OnUpdateTodoListSubscription = {
   } | null,
 };
 
-export type OnDeleteTodoListSubscription = {
-  onDeleteTodoList?:  {
-    __typename: "TodoList",
+export type OnDeleteLinkListSubscription = {
+  onDeleteLinkList?:  {
+    __typename: "LinkList",
     id: string,
+    title: string,
     createdAt: string,
-    todos?:  {
-      __typename: "ModelTodoConnection",
+    links?:  {
+      __typename: "ModelLinkConnection",
       items?:  Array< {
-        __typename: "Todo",
+        __typename: "Link",
         id: string,
-        name: string,
+        title: string,
+        url: string,
         createdAt: string,
-        completed: boolean,
         userId: string,
         updatedAt: string,
       } | null > | null,

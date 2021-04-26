@@ -2,17 +2,18 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
+export const getLink = /* GraphQL */ `
+  query GetLink($id: ID!) {
+    getLink(id: $id) {
       id
-      name
+      title
+      url
       createdAt
-      completed
-      todoList {
+      linkList {
         id
+        title
         createdAt
-        todos {
+        links {
           nextToken
         }
         updatedAt
@@ -22,20 +23,21 @@ export const getTodo = /* GraphQL */ `
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
+export const listLinks = /* GraphQL */ `
+  query ListLinks(
+    $filter: ModelLinkFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listLinks(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        title
+        url
         createdAt
-        completed
-        todoList {
+        linkList {
           id
+          title
           createdAt
           updatedAt
         }
@@ -46,17 +48,18 @@ export const listTodos = /* GraphQL */ `
     }
   }
 `;
-export const getTodoList = /* GraphQL */ `
-  query GetTodoList($id: ID!) {
-    getTodoList(id: $id) {
+export const getLinkList = /* GraphQL */ `
+  query GetLinkList($id: ID!) {
+    getLinkList(id: $id) {
       id
+      title
       createdAt
-      todos {
+      links {
         items {
           id
-          name
+          title
+          url
           createdAt
-          completed
           userId
           updatedAt
         }
@@ -66,17 +69,18 @@ export const getTodoList = /* GraphQL */ `
     }
   }
 `;
-export const listTodoLists = /* GraphQL */ `
-  query ListTodoLists(
-    $filter: ModelTodoListFilterInput
+export const listLinkLists = /* GraphQL */ `
+  query ListLinkLists(
+    $filter: ModelLinkListFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTodoLists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listLinkLists(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        title
         createdAt
-        todos {
+        links {
           nextToken
         }
         updatedAt

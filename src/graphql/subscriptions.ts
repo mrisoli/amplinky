@@ -2,17 +2,18 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo {
-    onCreateTodo {
+export const onCreateLink = /* GraphQL */ `
+  subscription OnCreateLink {
+    onCreateLink {
       id
-      name
+      title
+      url
       createdAt
-      completed
-      todoList {
+      linkList {
         id
+        title
         createdAt
-        todos {
+        links {
           nextToken
         }
         updatedAt
@@ -22,17 +23,18 @@ export const onCreateTodo = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo {
-    onUpdateTodo {
+export const onUpdateLink = /* GraphQL */ `
+  subscription OnUpdateLink {
+    onUpdateLink {
       id
-      name
+      title
+      url
       createdAt
-      completed
-      todoList {
+      linkList {
         id
+        title
         createdAt
-        todos {
+        links {
           nextToken
         }
         updatedAt
@@ -42,17 +44,18 @@ export const onUpdateTodo = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo {
-    onDeleteTodo {
+export const onDeleteLink = /* GraphQL */ `
+  subscription OnDeleteLink {
+    onDeleteLink {
       id
-      name
+      title
+      url
       createdAt
-      completed
-      todoList {
+      linkList {
         id
+        title
         createdAt
-        todos {
+        links {
           nextToken
         }
         updatedAt
@@ -62,17 +65,18 @@ export const onDeleteTodo = /* GraphQL */ `
     }
   }
 `;
-export const onCreateTodoList = /* GraphQL */ `
-  subscription OnCreateTodoList {
-    onCreateTodoList {
+export const onCreateLinkList = /* GraphQL */ `
+  subscription OnCreateLinkList {
+    onCreateLinkList {
       id
+      title
       createdAt
-      todos {
+      links {
         items {
           id
-          name
+          title
+          url
           createdAt
-          completed
           userId
           updatedAt
         }
@@ -82,17 +86,18 @@ export const onCreateTodoList = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateTodoList = /* GraphQL */ `
-  subscription OnUpdateTodoList {
-    onUpdateTodoList {
+export const onUpdateLinkList = /* GraphQL */ `
+  subscription OnUpdateLinkList {
+    onUpdateLinkList {
       id
+      title
       createdAt
-      todos {
+      links {
         items {
           id
-          name
+          title
+          url
           createdAt
-          completed
           userId
           updatedAt
         }
@@ -102,17 +107,18 @@ export const onUpdateTodoList = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteTodoList = /* GraphQL */ `
-  subscription OnDeleteTodoList {
-    onDeleteTodoList {
+export const onDeleteLinkList = /* GraphQL */ `
+  subscription OnDeleteLinkList {
+    onDeleteLinkList {
       id
+      title
       createdAt
-      todos {
+      links {
         items {
           id
-          name
+          title
+          url
           createdAt
-          completed
           userId
           updatedAt
         }

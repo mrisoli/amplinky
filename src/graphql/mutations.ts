@@ -2,20 +2,21 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createLink = /* GraphQL */ `
+  mutation CreateLink(
+    $input: CreateLinkInput!
+    $condition: ModelLinkConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createLink(input: $input, condition: $condition) {
       id
-      name
+      title
+      url
       createdAt
-      completed
-      todoList {
+      linkList {
         id
+        title
         createdAt
-        todos {
+        links {
           nextToken
         }
         updatedAt
@@ -25,20 +26,21 @@ export const createTodo = /* GraphQL */ `
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateLink = /* GraphQL */ `
+  mutation UpdateLink(
+    $input: UpdateLinkInput!
+    $condition: ModelLinkConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updateLink(input: $input, condition: $condition) {
       id
-      name
+      title
+      url
       createdAt
-      completed
-      todoList {
+      linkList {
         id
+        title
         createdAt
-        todos {
+        links {
           nextToken
         }
         updatedAt
@@ -48,20 +50,21 @@ export const updateTodo = /* GraphQL */ `
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteLink = /* GraphQL */ `
+  mutation DeleteLink(
+    $input: DeleteLinkInput!
+    $condition: ModelLinkConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deleteLink(input: $input, condition: $condition) {
       id
-      name
+      title
+      url
       createdAt
-      completed
-      todoList {
+      linkList {
         id
+        title
         createdAt
-        todos {
+        links {
           nextToken
         }
         updatedAt
@@ -71,20 +74,21 @@ export const deleteTodo = /* GraphQL */ `
     }
   }
 `;
-export const createTodoList = /* GraphQL */ `
-  mutation CreateTodoList(
-    $input: CreateTodoListInput!
-    $condition: ModelTodoListConditionInput
+export const createLinkList = /* GraphQL */ `
+  mutation CreateLinkList(
+    $input: CreateLinkListInput!
+    $condition: ModelLinkListConditionInput
   ) {
-    createTodoList(input: $input, condition: $condition) {
+    createLinkList(input: $input, condition: $condition) {
       id
+      title
       createdAt
-      todos {
+      links {
         items {
           id
-          name
+          title
+          url
           createdAt
-          completed
           userId
           updatedAt
         }
@@ -94,20 +98,21 @@ export const createTodoList = /* GraphQL */ `
     }
   }
 `;
-export const updateTodoList = /* GraphQL */ `
-  mutation UpdateTodoList(
-    $input: UpdateTodoListInput!
-    $condition: ModelTodoListConditionInput
+export const updateLinkList = /* GraphQL */ `
+  mutation UpdateLinkList(
+    $input: UpdateLinkListInput!
+    $condition: ModelLinkListConditionInput
   ) {
-    updateTodoList(input: $input, condition: $condition) {
+    updateLinkList(input: $input, condition: $condition) {
       id
+      title
       createdAt
-      todos {
+      links {
         items {
           id
-          name
+          title
+          url
           createdAt
-          completed
           userId
           updatedAt
         }
@@ -117,20 +122,21 @@ export const updateTodoList = /* GraphQL */ `
     }
   }
 `;
-export const deleteTodoList = /* GraphQL */ `
-  mutation DeleteTodoList(
-    $input: DeleteTodoListInput!
-    $condition: ModelTodoListConditionInput
+export const deleteLinkList = /* GraphQL */ `
+  mutation DeleteLinkList(
+    $input: DeleteLinkListInput!
+    $condition: ModelLinkListConditionInput
   ) {
-    deleteTodoList(input: $input, condition: $condition) {
+    deleteLinkList(input: $input, condition: $condition) {
       id
+      title
       createdAt
-      todos {
+      links {
         items {
           id
-          name
+          title
+          url
           createdAt
-          completed
           userId
           updatedAt
         }
