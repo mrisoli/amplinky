@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { API, Hub, graphqlOperation } from "aws-amplify";
+import { Amplify, Hub, graphqlOperation } from "aws-amplify";
 import { AmplifyAuthenticator, AmplifySignOut, AmplifySignUp } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import awsExports from "../src/aws-exports";
 import { AppProps } from "next/app";
 import { createLinkList } from '../src/graphql/mutations'
 
-API.configure(awsExports);
+Amplify.configure({ ...awsExports, ssr: true });
 
 const Public = ({ children }) => children
 
 function authListener() {
   Hub.listen('auth', async (data) => {
     if (data.payload.event == 'signUp') {
-      await API.graphql(
+      await Amplify.API.graphql(
         graphqlOperation(createLinkList, {
           input: {
             id: data.payload.data.user.username,
